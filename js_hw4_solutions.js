@@ -1,22 +1,16 @@
-// JavaScript Foundations Coding Assignment
-// ==========================================
 
-// SECTION 1: Basic Rules and Data Types
-// ==========================================
-
-// Exercise 1: Formatting and Naming (Code Correction)
 console.log("=== Exercise 1: Formatting and Naming ===");
-var thisIsANewVariable = 10;
-if (thisIsANewVariable == 10) {
+const thisIsANewVariable = 10;
+if (thisIsANewVariable === 10) {
   // code block
 }
 console.log("Variable formatted correctly:", thisIsANewVariable);
 
 // Exercise 2: Defining Core Data Types
 console.log("\n=== Exercise 2: Defining Core Data Types ===");
-let templateString = `This is a template string`;
-let floatNumber = 3.14;
-let booleanValue = true;
+const templateString = `This is a template string`;
+const floatNumber = 3.14;
+const booleanValue = true;
 console.log("String:", templateString);
 console.log("Float:", floatNumber);
 console.log("Boolean:", booleanValue);
@@ -37,14 +31,13 @@ console.log("Strict equality (===):", '100' === 100);
 
 // Exercise 5: Ternary Operator
 console.log("\n=== Exercise 5: Ternary Operator ===");
-let isWeekend = false;
-let schedule;
-schedule = isWeekend ? "Day off" : "Work day";
+const isWeekend = false;
+const schedule = isWeekend ? "Day off" : "Work day";
 console.log("Schedule:", schedule);
 
 // Exercise 6: If/Else Structure
 console.log("\n=== Exercise 6: If/Else Structure ===");
-let userAge = 16;
+const userAge = 16;
 if (userAge >= 18) {
   console.log("Access Granted");
 } else {
@@ -53,8 +46,8 @@ if (userAge >= 18) {
 
 // Exercise 7: Logical AND Operator
 console.log("\n=== Exercise 7: Logical AND Operator ===");
-let hasPermission = true;
-let itemCount = 3;
+const hasPermission = true;
+const itemCount = 3;
 if (hasPermission && itemCount < 5) {
   console.log("Ready to process");
 }
@@ -89,12 +82,12 @@ console.log("\n=== Exercise 11: Function Definition ===");
 function calculateArea(width, height) {
   return width * height;
 }
-let resultArea = calculateArea(5, 10);
+const resultArea = calculateArea(5, 10);
 console.log("Result Area:", resultArea);
 
 // Exercise 12: Array Manipulation
 console.log("\n=== Exercise 12: Array Manipulation ===");
-let fruitList = ['Apple', 'Banana'];
+const fruitList = ['Apple', 'Banana'];
 console.log("Initial array:", fruitList);
 fruitList.push('Grape');
 console.log("After push:", fruitList);
@@ -104,8 +97,8 @@ console.log("Index of 'Banana':", fruitList.indexOf('Banana'));
 
 // Exercise 13: Array Copying
 console.log("\n=== Exercise 13: Array Copying ===");
-let originalData = [1, 2, 3, 4, 5];
-let clonedData = originalData.slice();
+const originalData = [1, 2, 3, 4, 5];
+const clonedData = originalData.slice();
 console.log("Original data:", originalData);
 console.log("Cloned data:", clonedData);
 console.log("\nNote: The slice() method performs a SHALLOW COPY.");
@@ -121,15 +114,20 @@ function Animal(species, sound) {
   this.species = species;
   this.sound = sound;
 }
+Animal.prototype.speak = function () {
+  console.log(this.sound);
+};
 console.log("Animal constructor created");
 
 // Exercise 15: Object Instantiation
 console.log("\n=== Exercise 15: Object Instantiation ===");
-let dog = new Animal("Canine", "Woof");
-let cat = new Animal("Feline", "Meow");
-let animalArray = [dog, cat];
+const dog = new Animal("Canine", "Woof");
+const cat = new Animal("Feline", "Meow");
+const animalArray = [dog, cat];
 console.log("Dog:", dog);
 console.log("Cat:", cat);
 console.log("Animal Array:", animalArray);
+dog.speak();
+cat.speak();
 
 console.log("\n=== All Exercises Complete! ===");
