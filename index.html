@@ -3,143 +3,350 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HW4 JavaScript Foundations</title>
+    <meta name="description" content="JavaScript Foundations - HW4 Assignment demonstrating fundamental JavaScript concepts">
+    <meta name="author" content="Harold Flint">
+    <title>HW4: JavaScript Foundations | Harold Flint</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --warning-color: #f39c12;
+            --background-light: #f8f9fa;
+            --background-white: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --border-color: #e1e8ed;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            background-color: #f5f5f5;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
             line-height: 1.6;
-        }
-        
-        .container {
-            background-color: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            color: #2c3e50;
-            margin-top: 0;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 15px;
-        }
-        
-        .description {
-            background-color: #ecf0f1;
+            min-height: 100vh;
             padding: 20px;
-            border-left: 4px solid #3498db;
-            border-radius: 4px;
-            margin: 20px 0;
         }
-        
-        .instruction {
-            background-color: #fff3cd;
-            border: 1px solid #ffc107;
-            padding: 15px;
-            border-radius: 4px;
-            margin: 20px 0;
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: var(--background-white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
         }
-        
-        .instruction strong {
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #2980b9 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        main {
+            padding: 40px;
+        }
+
+        .card {
+            background-color: var(--background-white);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .description-card {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .instruction-card {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+            border-left: 4px solid var(--warning-color);
+        }
+
+        .instruction-card .card-title {
             color: #856404;
         }
-        
-        .topics {
-            margin-top: 30px;
-        }
-        
-        .topics h2 {
-            color: #34495e;
-            font-size: 1.3em;
-            margin-bottom: 15px;
-        }
-        
-        .topics ul {
-            list-style-type: none;
+
+        .steps {
+            counter-reset: step-counter;
+            list-style: none;
             padding-left: 0;
         }
-        
-        .topics li {
-            padding: 8px 0;
-            padding-left: 25px;
+
+        .steps > li {
+            counter-increment: step-counter;
             position: relative;
+            padding-left: 40px;
+            margin-bottom: 20px;
         }
-        
-        .topics li:before {
-            content: "✓";
+
+        .steps > li::before {
+            content: counter(step-counter);
             position: absolute;
             left: 0;
-            color: #27ae60;
+            top: 0;
+            background: var(--primary-color);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .sub-steps {
+            list-style: none;
+            margin-top: 10px;
+            padding-left: 0;
+        }
+
+        .sub-steps li {
+            padding: 8px 0 8px 20px;
+            position: relative;
+        }
+
+        .sub-steps li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
             font-weight: bold;
         }
-        
+
         .kbd {
             background-color: #f4f4f4;
             border: 1px solid #ccc;
-            border-radius: 3px;
-            padding: 2px 6px;
-            font-family: monospace;
+            border-radius: 4px;
+            padding: 3px 8px;
+            font-family: 'Courier New', Courier, monospace;
             font-size: 0.9em;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            display: inline-block;
         }
-        
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .topic-item {
+            background-color: var(--background-light);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .topic-item:hover {
+            background-color: #e8f5e9;
+            transform: translateX(5px);
+        }
+
+        .topic-item::before {
+            content: "✓";
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background-color: #4caf50;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
         footer {
-            margin-top: 40px;
+            background-color: var(--background-light);
+            padding: 30px;
             text-align: center;
-            color: #7f8c8d;
-            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .container {
+                box-shadow: none;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>HW4: JavaScript Foundations</h1>
-        
-        <div class="description">
-            <p>
-                This page demonstrates fundamental JavaScript concepts through a series of exercises.
-                All output is displayed in the browser's developer console.
-            </p>
-        </div>
-        
-        <div class="instruction">
-            <strong>📋 To view the JavaScript output:</strong>
-            <ol>
-                <li>Open your browser's developer console:
-                    <ul>
-                        <li>Press <span class="kbd">F12</span> on your keyboard, OR</li>
-                        <li>Right-click on the page → Select "Inspect" or "Inspect Element" → Click on the "Console" tab</li>
-                    </ul>
-                </li>
-                <li>Look for the console output showing various JavaScript exercises</li>
-            </ol>
-        </div>
-        
-        <div class="topics">
-            <h2>Topics Covered:</h2>
-            <ul>
-                <li>Variable Formatting and Naming</li>
-                <li>Core Data Types (Strings, Numbers, Booleans)</li>
-                <li>Comments</li>
-                <li>Equality Comparisons (== vs ===)</li>
-                <li>Conditionals (Ternary, If/Else)</li>
-                <li>Logical Operators</li>
-                <li>Loops (For, Do-While, Break)</li>
-                <li>Functions</li>
-                <li>Arrays and Array Manipulation</li>
-                <li>Object Constructors</li>
-            </ul>
-        </div>
-        
+        <header>
+            <h1>🚀 JavaScript Foundations</h1>
+            <p>Assignment 4 - Harold Flint</p>
+        </header>
+
+        <main>
+            <div class="card description-card">
+                <h2 class="card-title">
+                    <span class="card-icon">📚</span>
+                    About This Project
+                </h2>
+                <p>
+                    This interactive demonstration showcases fundamental JavaScript concepts through 
+                    <strong>15 comprehensive exercises</strong>. All code execution and output can be 
+                    viewed in your browser's developer console, providing real-time insights into 
+                    JavaScript programming fundamentals.
+                </p>
+            </div>
+
+            <div class="card instruction-card">
+                <h2 class="card-title">
+                    <span class="card-icon">🔍</span>
+                    How to View the Output
+                </h2>
+                <ol class="steps">
+                    <li>
+                        <strong>Open Developer Console</strong>
+                        <ul class="sub-steps">
+                            <li>Press <kbd class="kbd">F12</kbd> on your keyboard, <strong>OR</strong></li>
+                            <li>Right-click anywhere → <span class="highlight">Inspect</span> → <span class="highlight">Console</span> tab</li>
+                            <li>Windows/Linux: <kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">Shift</kbd> + <kbd class="kbd">J</kbd></li>
+                            <li>Mac: <kbd class="kbd">Cmd</kbd> + <kbd class="kbd">Option</kbd> + <kbd class="kbd">J</kbd></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <strong>View Exercise Output</strong>
+                        <ul class="sub-steps">
+                            <li>Scroll through the console to see all 15 exercises</li>
+                            <li>Each exercise is clearly labeled with its number and topic</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h2 class="card-title">
+                    <span class="card-icon">📋</span>
+                    Topics Covered
+                    <span class="status-badge">15 Exercises</span>
+                </h2>
+                <div class="topics-grid">
+                    <div class="topic-item">Variable Formatting & Naming</div>
+                    <div class="topic-item">Core Data Types</div>
+                    <div class="topic-item">Single-Line Comments</div>
+                    <div class="topic-item">Equality Comparisons</div>
+                    <div class="topic-item">Ternary Operator</div>
+                    <div class="topic-item">If/Else Structures</div>
+                    <div class="topic-item">Logical AND Operator</div>
+                    <div class="topic-item">For Loops</div>
+                    <div class="topic-item">Loop Control (Break)</div>
+                    <div class="topic-item">Do-While Loops</div>
+                    <div class="topic-item">Function Definitions</div>
+                    <div class="topic-item">Array Manipulation</div>
+                    <div class="topic-item">Array Copying Methods</div>
+                    <div class="topic-item">Object Constructors</div>
+                    <div class="topic-item">Object Instantiation</div>
+                </div>
+            </div>
+        </main>
+
         <footer>
-            <p>JavaScript Foundations Assignment</p>
+            <p>
+                <strong>JavaScript Foundations Assignment</strong><br>
+                HW4 - Computer Science Fundamentals<br>
+                © 2025 Harold Flint
+            </p>
         </footer>
     </div>
-    
-    <script src="js_hw4_solutions.js"></script>
+
+    <script src="./js_hw4_solutions.js"></script>
 </body>
 </html>
